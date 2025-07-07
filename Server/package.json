@@ -19,7 +19,8 @@
   "license": "MIT",
   "dependencies": {
     "fastify": "^5.3.2",
-    "pg": "^8.16.0",
+    "pg": "^8.16.3",
+    "pg-pool": "^3.10.1",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
