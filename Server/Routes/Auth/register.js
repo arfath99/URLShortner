@@ -8,7 +8,7 @@ import registerSchema from '#schemas/registerUserSchema.js';
 import successResponse from '#utility/Responses/successResponse.js';
 import errorResponse from '#utility/Responses/errorResponse.js';
 
-async function register(app, options) {
+async function register(app) {
   app.post('/register', { schema: registerSchema }, async (req, res) => {
     let response = await createUser(req.body);
     app.log[response.success ? 'info' : 'error'](response.message);
@@ -23,7 +23,7 @@ async function createUser({ username, email, password }) {
     ]);
 
     if (user.rows.length) {
-      return errorResponse(409, 'User already exists');
+      return errorResponse(400, 'User already exists');
     }
 
     const passwordStrength = zxcvbn(password);
@@ -45,7 +45,3 @@ async function createUser({ username, email, password }) {
 }
 
 export default register;
-
-/**
- * Handler Name
- */

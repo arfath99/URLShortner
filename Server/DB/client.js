@@ -1,5 +1,6 @@
 import Pool from 'pg-pool';
 import dotenv from 'dotenv';
+import app from '../app.js';
 dotenv.config();
 
 const client = new Pool({
@@ -14,6 +15,6 @@ const client = new Pool({
 });
 
 await client.connect();
-console.log(`Connected to database`);
+app.log.info('Connected to database');
 
 export default client;

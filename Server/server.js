@@ -1,26 +1,22 @@
-import fastify from 'fastify';
-
+import app from './app.js';
 import login from '#routes/Auth/login.js';
 import register from '#routes/Auth/register.js';
 
-const PORT = parseInt(process.env.APPLICATION_PORT, 10) || 8080;
+import urlRoutes from '#routes/URL/index.js';
 
-const app = fastify({
-  logger: {
-    transport: {
-      target: 'pino-pretty',
-    },
-  },
-  ajv: {
-    customOptions: {
-      coerceTypes: false,
-      allErrors: true,
-    },
-  },
-});
+// import shorten from '#routes/URL/create.js';
+// import getShortURLS from '#routes/URL/getALL.js';
+// import deleteShortURL from '#routes/URL/delete.js';
+
+const PORT = parseInt(process.env.APPLICATION_PORT, 10) || 8080;
 
 app.register(login);
 app.register(register);
+
+app.register(urlRoutes);
+// app.register(shorten);
+// app.register(getShortURLS);
+// app.register(deleteShortURL);
 
 app.get('/test', (req, res) => {
   const json = {

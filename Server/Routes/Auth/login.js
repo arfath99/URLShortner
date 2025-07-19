@@ -6,7 +6,7 @@ import loginSchema from '#schemas/loginUserSchema.js';
 import successResponse from '#utility/Responses/successResponse.js';
 import errorResponse from '#utility/Responses/errorResponse.js';
 
-async function login(app, options) {
+async function login(app) {
   app.post('/login', { schema: loginSchema }, async (req, res) => {
     let response = await validateUser(req.body);
     app.log[response.success ? 'info' : 'error'](response.message);
@@ -30,7 +30,7 @@ async function validateUser({ email, password }) {
     if (result) {
       return await successResponse(200, 'Login Successful');
     } else {
-      return await errorResponse(401, 'Invalid email or password', err);
+      return await errorResponse(401, 'Invalid email or password');
     }
   } catch (error) {
     return await errorResponse(500, 'Failed to login', error);
